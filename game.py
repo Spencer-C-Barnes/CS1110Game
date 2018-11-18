@@ -1,4 +1,4 @@
-# Spencer Barnes
+# Spencer Barnes and William Brinkley (wjb6kcr)
 
 import gamebox
 import pygame
