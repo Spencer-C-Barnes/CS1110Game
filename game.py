@@ -9,6 +9,7 @@ camera = gamebox.Camera(800, 600)
 player = gamebox.from_color(50, 50, "blue", 15, 15)
 projectiles = []
 swarmers = []
+power_up_1s = []
 cool_down_count = 0
 refresh = 45
 player_speed = 5
@@ -129,7 +130,7 @@ def player_endgame():
     global health
     global level
     if health == 0:
-        level = 5
+        level = 10
 
 
 def endgame_screen():
@@ -155,6 +156,26 @@ def level_2_start(keys):
         swarmer_speed = 4
 
 
+def power_up_1():
+    global refresh
+    if random.randint(1, 200) == 25:
+        power_up_1_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "yellow", 15, 15)
+        power_up_1s.append(power_up_1_form)
+    for power_up_1 in power_up_1s:
+        camera.draw(power_up_1)
+        if player.touches(power_up_1):
+            power_up_1s.remove(power_up_1)
+            if refresh > 10:
+                refresh -= 5
+
+
+def winning_screen():
+    global level
+    level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Congratulations! You won!",
+                                      color="white")
+    camera.draw(level_message)
+
+
 def tick(keys):
     global level
     camera.clear("black")
@@ -166,6 +187,7 @@ def tick(keys):
         swarmer_start()
         swarmer_bullet_player_collision()
         player_ui()
+        power_up_1()
         camera.draw(player)
         player_movement(keys)
         player_endgame()
@@ -177,10 +199,13 @@ def tick(keys):
         swarmer_start()
         swarmer_bullet_player_collision()
         player_ui()
+        power_up_1()
         camera.draw(player)
         player_movement(keys)
         player_endgame()
-    if level == 5:
+    if level == 4:
+        winning_screen()
+    if level == 10:
         endgame_screen()
     camera.display()
 
