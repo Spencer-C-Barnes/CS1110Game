@@ -14,6 +14,9 @@ refresh = 45
 player_speed = 5
 num_swarmers = 10
 swarmer_speed = 2
+score = 0
+health = 3
+level = 0
 
 
 def player_movement(keys):
@@ -84,13 +87,53 @@ def swarmer_start():
             swarmer.y += swarmer_speed
 
 
+def swarmer_bullet_player_collision():
+    global score
+    global health
+    for swarmer in swarmers:
+        if swarmer.touches(player):
+            health -= 1
+            swarmers.remove(swarmer)
+        for projectile in projectiles:
+            if projectile.touches(swarmer):
+                swarmers.remove(swarmer)
+                projectiles.remove(projectile)
+                score += 1
+
+
+def player_ui():
+    score_counter = gamebox.from_text(camera.x+300, camera.y-250, fontsize=36, text="Score: " + str(score),
+                                      color="white", bold=True)
+    health_counter = gamebox.from_text(camera.x-300, camera.y-250, fontsize=36, text="Health: " + str(health),
+                                       color="white", bold=True)
+    camera.draw(score_counter)
+    camera.draw(health_counter)
+
+
+def welcome_screen(keys):
+    global level
+    welcome_message = gamebox.from_text(camera.x, camera.y-250, fontsize=36, text="Welcome to \"Insert Game Name "
+                                                                                  "Here\"", color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y-2, fontsize=36, text="Press Space to Begin", color="white")
+    camera.draw(welcome_message)
+    camera.draw(begin_message)
+    if pygame.K_SPACE in keys:
+        level += 1
+
+
 def tick(keys):
-    camera.clear("black")
-    shooting(keys)
-    friction()
-    swarmer_start()
-    camera.draw(player)
-    player_movement(keys)
+    global level
+    if level == 0:
+        welcome_screen(keys)
+    if level == 1:
+        camera.clear("black")
+        shooting(keys)
+        friction()
+        swarmer_start()
+        swarmer_bullet_player_collision()
+        player_ui()
+        camera.draw(player)
+        player_movement(keys)
     camera.display()
 
 
