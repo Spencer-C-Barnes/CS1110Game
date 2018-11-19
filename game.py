@@ -7,6 +7,8 @@ import pygame
 camera = gamebox.Camera(800, 600)
 player = gamebox.from_color(50, 50, "blue", 15, 15)
 projectiles = []
+cool_down_count = 0
+refresh = 45
 
 
 def player_movement(keys):
@@ -22,8 +24,13 @@ def player_movement(keys):
 
 
 def shooting(keys):
-    if pygame.K_UP in keys or pygame.K_DOWN in keys or pygame.K_LEFT in keys or pygame.K_RIGHT in keys:
+    global cool_down_count
+    global refresh
+    cool_down_count += 1
+    if (pygame.K_UP in keys or pygame.K_DOWN in keys or pygame.K_LEFT in keys or pygame.K_RIGHT in keys) and \
+            cool_down_count > refresh:
         projectile_form = gamebox.from_color(player.x, player.y, "green", 15, 15)
+        cool_down_count = 0
         if pygame.K_UP in keys:
             projectile_form.yspeed = -5
         if pygame.K_DOWN in keys:
