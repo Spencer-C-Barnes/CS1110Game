@@ -102,10 +102,14 @@ def swarmer_bullet_player_collision():
 
 
 def player_ui():
+    global level
+    global num_swarmers
     score_counter = gamebox.from_text(camera.x+300, camera.y-250, fontsize=36, text="Score: " + str(score),
                                       color="white", bold=True)
     health_counter = gamebox.from_text(camera.x-300, camera.y-250, fontsize=36, text="Health: " + str(health),
                                        color="white", bold=True)
+    if num_swarmers == 0 and len(swarmers) == 0:
+        level += 1
     camera.draw(score_counter)
     camera.draw(health_counter)
 
@@ -121,12 +125,42 @@ def welcome_screen(keys):
         level += 1
 
 
+def player_endgame():
+    global health
+    global level
+    if health == 0:
+        level = 5
+
+
+def endgame_screen():
+    global level
+    global score
+    welcome_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Game Over!", color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Your score was: "+str(score), color="white")
+    camera.draw(welcome_message)
+    camera.draw(begin_message)
+
+
+def level_2_start(keys):
+    global level
+    global num_swarmers
+    global swarmer_speed
+    level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 2", color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
+    camera.draw(level_message)
+    camera.draw(begin_message)
+    if pygame.K_SPACE in keys:
+        level += 1
+        num_swarmers = 25
+        swarmer_speed = 4
+
+
 def tick(keys):
     global level
+    camera.clear("black")
     if level == 0:
         welcome_screen(keys)
     if level == 1:
-        camera.clear("black")
         shooting(keys)
         friction()
         swarmer_start()
@@ -134,6 +168,20 @@ def tick(keys):
         player_ui()
         camera.draw(player)
         player_movement(keys)
+        player_endgame()
+    if level == 2:
+        level_2_start(keys)
+    if level == 3:
+        shooting(keys)
+        friction()
+        swarmer_start()
+        swarmer_bullet_player_collision()
+        player_ui()
+        camera.draw(player)
+        player_movement(keys)
+        player_endgame()
+    if level == 5:
+        endgame_screen()
     camera.display()
 
 
