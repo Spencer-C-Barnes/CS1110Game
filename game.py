@@ -11,7 +11,8 @@ projectiles = []
 swarmers = []
 power_up_1s = []
 power_up_2s = []
-cool_down_count = 0
+shooters = []
+konami_code = []
 refresh = 45
 player_speed = 5
 num_swarmers = 10
@@ -19,7 +20,12 @@ swarmer_speed = 2
 score = 0
 health = 3
 level = 0
+cool_down_count = 0
 cool_down_count_2 = 0
+cool_down_count_3 = 18
+cool_down_count_4 = 0
+num_shooters = 10
+shooter_speed = 2
 
 
 def player_movement(keys):
@@ -90,6 +96,31 @@ def swarmer_start():
             swarmer.y -= swarmer_speed
         elif player.y > swarmer.y:
             swarmer.y += swarmer_speed
+
+
+def shooter_start():
+    #FINISH IMPLEMENTING AND BUG TESTING
+    global num_shooters
+    global shooter_speed
+    global cool_down_count_3
+    cool_down_count_3 += 1
+    if cool_down_count_3 % 60 == 0 and num_shooters > 0:
+        shooter_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "dark red", 15, 15)
+        num_shooters -= 1
+        swarmers.append(shooter_form)
+    for shooter in shooters:
+        camera.draw(shooter)
+        if player.x < shooter.x:
+            shooter.x -= shooter_speed
+        elif player.x > shooter.x:
+            shooter.x += shooter_speed
+        if player.y < shooter.y:
+            shooter.y -= shooter_speed
+        elif player.y > shooter.y:
+            shooter.y += shooter_speed
+        if random.randint(1, 50) == 25:
+            bullet_form = gamebox.from_color(shooter.x, shooter.y, "orange", 7, 7)
+            camera.draw(bullet_form)
 
 
 def swarmer_bullet_player_collision():
@@ -164,6 +195,22 @@ def level_2_start(keys):
         swarmer_speed = 4
 
 
+def level_3_start(keys):
+    global level
+    global num_swarmers
+    global power_up_1s
+    global power_up_2s
+    level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 3", color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
+    camera.draw(level_message)
+    camera.draw(begin_message)
+    power_up_1s = []
+    power_up_2s = []
+    if pygame.K_SPACE in keys:
+        level += 1
+        num_swarmers = 10
+
+
 def power_up_1():
     global refresh
     if random.randint(1, 400) == 25:
@@ -190,6 +237,50 @@ def power_up_2():
                 player_speed += 1
 
 
+def konami_code_func(keys):
+    global konami_code
+    global refresh
+    global health
+    global cool_down_count_4
+    cool_down_count_4 += 1
+    if pygame.K_UP in keys and "UP" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("UP")
+        cool_down_count_4 = 0
+    if pygame.K_UP in keys and "UP2" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("UP2")
+        cool_down_count_4 = 0
+    if pygame.K_DOWN in keys and "DOWN" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("DOWN")
+        cool_down_count_4 = 0
+    if pygame.K_DOWN in keys and "DOWN2" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("DOWN2")
+        cool_down_count_4 = 0
+    if pygame.K_LEFT in keys and "LEFT" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("LEFT")
+        cool_down_count_4 = 0
+    if pygame.K_RIGHT in keys and "RIGHT" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("RIGHT")
+        cool_down_count_4 = 0
+    if pygame.K_LEFT in keys and "LEFT2" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("LEFT2")
+        cool_down_count_4 = 0
+    if pygame.K_RIGHT in keys and "RIGHT2" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("RIGHT2")
+        cool_down_count_4 = 0
+    if pygame.K_b in keys and "B" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("B")
+        cool_down_count_4 = 0
+    if pygame.K_a in keys and "A" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("A")
+        cool_down_count_4 = 0
+    if pygame.K_RETURN in keys and "START" not in konami_code and cool_down_count_4 > 5:
+        konami_code.append("START")
+        cool_down_count_4 = 0
+    if konami_code == ["UP", "UP2", "DOWN", "DOWN2", "LEFT", "RIGHT", "LEFT2", "RIGHT2", "B", "A", "START"]:
+        refresh = 1
+        health = 99
+
+
 def winning_screen():
     global level
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Congratulations! You won!",
@@ -202,6 +293,7 @@ def tick(keys):
     camera.clear("black")
     if level == 0:
         welcome_screen(keys)
+        konami_code_func(keys)
     if level == 1:
         shooting(keys)
         friction()
@@ -227,6 +319,20 @@ def tick(keys):
         player_movement(keys)
         player_endgame()
     if level == 4:
+        level_3_start(keys)
+    if level == 5:
+        shooting(keys)
+        friction()
+        swarmer_start()
+        shooter_start()
+        swarmer_bullet_player_collision()
+        player_ui()
+        power_up_1()
+        power_up_2()
+        camera.draw(player)
+        player_movement(keys)
+        player_endgame()
+    if level == 6:
         winning_screen()
     if level == 10:
         endgame_screen()
