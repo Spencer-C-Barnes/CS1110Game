@@ -9,6 +9,8 @@ camera = gamebox.Camera(800, 600)
 player = gamebox.from_color(50, 50, "blue", 15, 15)
 projectiles = []
 swarmers = []
+power_up_1s = []
+power_up_2s = []
 cool_down_count = 0
 refresh = 45
 player_speed = 5
@@ -17,6 +19,7 @@ swarmer_speed = 2
 score = 0
 health = 3
 level = 0
+cool_down_count_2 = 0
 
 
 def player_movement(keys):
@@ -71,7 +74,9 @@ def friction():
 def swarmer_start():
     global num_swarmers
     global swarmer_speed
-    if cool_down_count % 60 == 0 and num_swarmers > 0:
+    global cool_down_count_2
+    cool_down_count_2 += 1
+    if cool_down_count_2 % 60 == 0 and num_swarmers > 0:
         swarmer_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "red", 15, 15)
         num_swarmers -= 1
         swarmers.append(swarmer_form)
@@ -129,7 +134,7 @@ def player_endgame():
     global health
     global level
     if health == 0:
-        level = 5
+        level = 10
 
 
 def endgame_screen():
@@ -145,14 +150,51 @@ def level_2_start(keys):
     global level
     global num_swarmers
     global swarmer_speed
+    global power_up_1s
+    global power_up_2s
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 2", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
     camera.draw(level_message)
     camera.draw(begin_message)
+    power_up_1s = []
+    power_up_2s = []
     if pygame.K_SPACE in keys:
         level += 1
         num_swarmers = 25
         swarmer_speed = 4
+
+
+def power_up_1():
+    global refresh
+    if random.randint(1, 400) == 25:
+        power_up_1_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "yellow", 15, 15)
+        power_up_1s.append(power_up_1_form)
+    for power_up_1 in power_up_1s:
+        camera.draw(power_up_1)
+        if player.touches(power_up_1):
+            power_up_1s.remove(power_up_1)
+            if refresh > 10:
+                refresh -= 5
+
+
+def power_up_2():
+    global player_speed
+    if random.randint(1, 400) == 25:
+        power_up_2_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "purple", 15, 15)
+        power_up_2s.append(power_up_2_form)
+    for power_up_2 in power_up_2s:
+        camera.draw(power_up_2)
+        if player.touches(power_up_2):
+            power_up_2s.remove(power_up_2)
+            if player_speed < 15:
+                player_speed += 1
+
+
+def winning_screen():
+    global level
+    level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Congratulations! You won!",
+                                      color="white")
+    camera.draw(level_message)
 
 
 def tick(keys):
@@ -166,6 +208,8 @@ def tick(keys):
         swarmer_start()
         swarmer_bullet_player_collision()
         player_ui()
+        power_up_1()
+        power_up_2()
         camera.draw(player)
         player_movement(keys)
         player_endgame()
@@ -177,10 +221,14 @@ def tick(keys):
         swarmer_start()
         swarmer_bullet_player_collision()
         player_ui()
+        power_up_1()
+        power_up_2()
         camera.draw(player)
         player_movement(keys)
         player_endgame()
-    if level == 5:
+    if level == 4:
+        winning_screen()
+    if level == 10:
         endgame_screen()
     camera.display()
 
