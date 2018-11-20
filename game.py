@@ -13,6 +13,7 @@ power_up_1s = []
 power_up_2s = []
 shooters = []
 konami_code = []
+bullets = []
 refresh = 45
 player_speed = 5
 num_swarmers = 10
@@ -24,7 +25,7 @@ cool_down_count = 0
 cool_down_count_2 = 0
 cool_down_count_3 = 18
 cool_down_count_4 = 0
-num_shooters = 10
+num_shooters = 0
 shooter_speed = 2
 
 
@@ -99,15 +100,16 @@ def swarmer_start():
 
 
 def shooter_start():
-    #FINISH IMPLEMENTING AND BUG TESTING
     global num_shooters
     global shooter_speed
     global cool_down_count_3
+    global health
+    global player
     cool_down_count_3 += 1
     if cool_down_count_3 % 60 == 0 and num_shooters > 0:
         shooter_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "dark red", 15, 15)
         num_shooters -= 1
-        swarmers.append(shooter_form)
+        shooters.append(shooter_form)
     for shooter in shooters:
         camera.draw(shooter)
         if player.x < shooter.x:
@@ -118,9 +120,26 @@ def shooter_start():
             shooter.y -= shooter_speed
         elif player.y > shooter.y:
             shooter.y += shooter_speed
-        if random.randint(1, 50) == 25:
+        if random.randint(1, 100) == 25:
             bullet_form = gamebox.from_color(shooter.x, shooter.y, "orange", 7, 7)
-            camera.draw(bullet_form)
+            if player.x < shooter.x:
+                bullet_form.xspeed -= shooter_speed*1.5
+            elif player.x > shooter.x:
+                bullet_form.xspeed += shooter_speed*1.5
+            if player.y < shooter.y:
+                bullet_form.yspeed -= shooter_speed*1.5
+            elif player.y > shooter.y:
+                bullet_form.yspeed += shooter_speed*1.5
+            bullets.append(bullet_form)
+    for bullet in bullets:
+        bullet.move_speed()
+        if bullet.touches(player):
+            health -= 1
+            bullets.remove(bullet)
+        if bullet.x == camera.x + 400 or bullet.x == camera.x - 400 or bullet.y == camera.y + 300 or \
+                bullet.y == camera.y - 300:
+            bullets.remove(bullet)
+        camera.draw(bullet)
 
 
 def swarmer_bullet_player_collision():
@@ -135,16 +154,25 @@ def swarmer_bullet_player_collision():
                 swarmers.remove(swarmer)
                 projectiles.remove(projectile)
                 score += 1
+    for shooter in shooters:
+        if shooter.touches(player):
+            health -= 1
+            shooters.remove(shooter)
+        for projectile in projectiles:
+            if projectile.touches(shooter):
+                shooters.remove(shooter)
+                projectiles.remove(projectile)
 
 
 def player_ui():
     global level
     global num_swarmers
+    global num_shooters
     score_counter = gamebox.from_text(camera.x+300, camera.y-250, fontsize=36, text="Score: " + str(score),
                                       color="white", bold=True)
     health_counter = gamebox.from_text(camera.x-300, camera.y-250, fontsize=36, text="Health: " + str(health),
                                        color="white", bold=True)
-    if num_swarmers == 0 and len(swarmers) == 0:
+    if num_swarmers == 0 and len(swarmers) == 0 and num_shooters == 0 and len(shooters) == 0:
         level += 1
     camera.draw(score_counter)
     camera.draw(health_counter)
@@ -183,12 +211,16 @@ def level_2_start(keys):
     global swarmer_speed
     global power_up_1s
     global power_up_2s
+    global bullets
+    global projectiles
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 2", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
     camera.draw(level_message)
     camera.draw(begin_message)
     power_up_1s = []
     power_up_2s = []
+    bullets = []
+    projectiles = []
     if pygame.K_SPACE in keys:
         level += 1
         num_swarmers = 25
@@ -200,15 +232,21 @@ def level_3_start(keys):
     global num_swarmers
     global power_up_1s
     global power_up_2s
+    global num_shooters
+    global bullets
+    global projectiles
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 3", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
     camera.draw(level_message)
     camera.draw(begin_message)
     power_up_1s = []
     power_up_2s = []
+    bullets = []
+    projectiles = []
     if pygame.K_SPACE in keys:
         level += 1
         num_swarmers = 10
+        num_shooters = 10
 
 
 def power_up_1():
@@ -220,7 +258,7 @@ def power_up_1():
         camera.draw(power_up_1)
         if player.touches(power_up_1):
             power_up_1s.remove(power_up_1)
-            if refresh > 10:
+            if refresh > 5:
                 refresh -= 5
 
 
