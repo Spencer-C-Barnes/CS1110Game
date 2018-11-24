@@ -27,6 +27,7 @@ cool_down_count_3 = 18
 cool_down_count_4 = 0
 num_shooters = 0
 shooter_speed = 2
+scores_dict = {}
 
 
 def player_movement(keys):
@@ -193,14 +194,14 @@ def player_endgame():
     global health
     global level
     if health == 0:
-        level = 10
+        level = -2
 
 
 def endgame_screen():
     global level
     global score
     welcome_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Game Over!", color="white")
-    begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Your score was: "+str(score), color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y - 200, fontsize=36, text="Your score was: "+str(score), color="white")
     camera.draw(welcome_message)
     camera.draw(begin_message)
 
@@ -326,9 +327,49 @@ def winning_screen():
     camera.draw(level_message)
 
 
+def write_high_scores():
+    global scores_dict
+    global score
+    global level
+    sorting_list = []
+    new_list = []
+    file = open("scores.csv", "r")
+    initials = input("Please enter your initials (3 Letters): ")
+    scores_dict[score] = initials
+    for line in file:
+        name_score = line.strip().split(",")
+        scores_dict[int(name_score[1])] = name_score[0]
+    for value in scores_dict.keys():
+        sorting_list.append(value)
+        sorting_list.sort()
+        sorting_list.reverse()
+    for index in range(5):
+        new_list.append(scores_dict[sorting_list[index]] + "," + str(sorting_list[index]) + "\n")
+    file_2 = open("scores.csv", "w")
+    file_2.writelines(new_list)
+    level += 1
+
+
+def read_high_scores():
+    file = open("scores.csv")
+    line_processed = []
+    for line in file:
+        line_processed.append(line.strip().split(","))
+    for spacing in range(5):
+        name_disp = gamebox.from_text(camera.x - 100, camera.y-100+50*spacing, line_processed[spacing][0], 36, "white")
+        score_disp = gamebox.from_text(camera.x + 100, camera.y-100+50*spacing, line_processed[spacing][1], 36, "white")
+        camera.draw(score_disp)
+        camera.draw(name_disp)
+
+
 def tick(keys):
     global level
     camera.clear("black")
+    if level == -2:
+        write_high_scores()
+    if level == -1:
+        endgame_screen()
+        read_high_scores()
     if level == 0:
         welcome_screen(keys)
         konami_code_func(keys)
@@ -371,9 +412,10 @@ def tick(keys):
         player_movement(keys)
         player_endgame()
     if level == 6:
+        write_high_scores()
+    if level == 7:
         winning_screen()
-    if level == 10:
-        endgame_screen()
+        read_high_scores()
     camera.display()
 
 
