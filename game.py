@@ -183,9 +183,11 @@ def welcome_screen(keys):
     global level
     welcome_message = gamebox.from_text(camera.x, camera.y-250, fontsize=36, text="Welcome to \"Insert Game Name "
                                                                                   "Here\"", color="white")
-    begin_message = gamebox.from_text(camera.x, camera.y-2, fontsize=36, text="Press Space to Begin", color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y+250, fontsize=36, text="Press Space to Begin", color="white")
+    how_to_play = gamebox.from_image(camera.x, camera.y, 'how_to_play.jpg')
     camera.draw(welcome_message)
     camera.draw(begin_message)
+    camera.draw(how_to_play)
     if pygame.K_SPACE in keys:
         level += 1
 
