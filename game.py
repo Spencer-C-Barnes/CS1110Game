@@ -7,6 +7,7 @@ import random
 # Define Variables
 camera = gamebox.Camera(800, 600)
 player = gamebox.from_color(50, 50, "blue", 15, 15)
+boss = gamebox.from_color(camera.x-400, camera.y-150, "red", 100, 100)
 projectiles = []
 swarmers = []
 power_up_1s = []
@@ -14,19 +15,24 @@ power_up_2s = []
 shooters = []
 konami_code = []
 bullets = []
+lasers = []
 refresh = 45
 player_speed = 5
 num_swarmers = 10
 swarmer_speed = 2
 score = 0
 health = 3
-level = 0
+level = 6
 cool_down_count = 0
 cool_down_count_2 = 0
 cool_down_count_3 = 18
 cool_down_count_4 = 0
+cool_down_count_5 = 0
 num_shooters = 0
 shooter_speed = 2
+num_boss = 0
+boss_speed = 5
+boss_health = 30
 scores_dict = {}
 
 
@@ -77,6 +83,44 @@ def friction():
         player.yspeed -= 1
     if player.yspeed < 0:
         player.yspeed += 1
+
+
+def boss_start():
+    global num_boss
+    global boss_speed
+    global player
+    global boss
+    global cool_down_count_5
+    global boss_health
+    global level
+    global health
+    cool_down_count_5 += 1
+    if boss.touches(player):
+        health -= 1
+    if num_boss > 0:
+        num_boss -= 1
+        boss.xspeed = boss_speed
+    if cool_down_count_5 > 160:
+        boss.xspeed *= -1
+        cool_down_count_5 = 0
+    for projectile in projectiles:
+        if projectile.touches(boss):
+            boss_health -= 1
+            projectiles.remove(projectile)
+    if boss_health == 0:
+        level += 1
+    if random.randint(0, 25) == 5:
+        laser_form = gamebox.from_color(boss.x, boss.y, "orange", 75, 75)
+        laser_form.yspeed = 7
+        lasers.append(laser_form)
+    for laser in lasers:
+        if player.touches(laser):
+            health -= 1
+            lasers.remove(laser)
+        camera.draw(laser)
+        laser.move_speed()
+    boss.move_speed()
+    camera.draw(boss)
 
 
 def swarmer_start():
@@ -252,6 +296,26 @@ def level_3_start(keys):
         num_shooters = 10
 
 
+def level_boss_start(keys):
+    global level
+    global power_up_1s
+    global power_up_2s
+    global bullets
+    global projectiles
+    global num_boss
+    level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 4", color="white")
+    begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
+    camera.draw(level_message)
+    camera.draw(begin_message)
+    power_up_1s = []
+    power_up_2s = []
+    bullets = []
+    projectiles = []
+    if pygame.K_SPACE in keys:
+        level += 1
+        num_boss = 1
+
+
 def power_up_1():
     global refresh
     if random.randint(1, 400) == 25:
@@ -414,8 +478,20 @@ def tick(keys):
         player_movement(keys)
         player_endgame()
     if level == 6:
-        write_high_scores()
+        level_boss_start(keys)
     if level == 7:
+        shooting(keys)
+        friction()
+        boss_start()
+        player_ui()
+        power_up_1()
+        power_up_2()
+        camera.draw(player)
+        player_movement(keys)
+        player_endgame()
+    if level == 8:
+        write_high_scores()
+    if level == 9:
         winning_screen()
         read_high_scores()
     camera.display()
