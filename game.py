@@ -1,4 +1,5 @@
-# Spencer Barnes and William Brinkley (wjb6kcr)
+# Spencer Barnes (scb9ca) and William Brinkley (wjb6kcr)
+# *** Character images and backgrounds are in progress. They are being drawn by William Brinkley ***
 
 import gamebox
 import pygame
@@ -94,6 +95,7 @@ def boss_start():
     global boss_health
     global level
     global health
+    global score
     cool_down_count_5 += 1
     if boss.touches(player):
         health -= 1
@@ -108,6 +110,7 @@ def boss_start():
             boss_health -= 1
             projectiles.remove(projectile)
     if boss_health == 0:
+        score += 30
         level += 1
     if random.randint(0, 25) == 5:
         laser_form = gamebox.from_color(boss.x, boss.y, "orange", 75, 75)
@@ -129,7 +132,7 @@ def swarmer_start():
     global cool_down_count_2
     cool_down_count_2 += 1
     if cool_down_count_2 % 60 == 0 and num_swarmers > 0:
-        swarmer_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "red", 15, 15)
+        swarmer_form = gamebox.from_image(random.randint(10, 790), random.randint(10, 550), "HokieFront2.png")
         num_swarmers -= 1
         swarmers.append(swarmer_form)
     for swarmer in swarmers:  # Swarmer code by Craig Dill
@@ -227,9 +230,13 @@ def welcome_screen(keys):
     global level
     welcome_message = gamebox.from_text(camera.x, camera.y-250, fontsize=36, text="Welcome to \"Insert Game Name "
                                                                                   "Here\"", color="white")
+    welcome_message_2 = gamebox.from_text(camera.x, camera.y - 200, fontsize=36,
+                                          text="Created By: Spencer Barnes (scb9ca) & William Brinkley (wjb6kcr)",
+                                          color="white")
     begin_message = gamebox.from_text(camera.x, camera.y+250, fontsize=36, text="Press Space to Begin", color="white")
     how_to_play = gamebox.from_image(camera.x, camera.y, 'how_to_play.jpg')
     camera.draw(welcome_message)
+    camera.draw(welcome_message_2)
     camera.draw(begin_message)
     camera.draw(how_to_play)
     if pygame.K_SPACE in keys:
