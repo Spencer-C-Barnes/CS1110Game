@@ -9,6 +9,7 @@ import random
 camera = gamebox.Camera(800, 600)
 player = gamebox.from_color(50, 50, "blue", 15, 15)
 boss = gamebox.from_color(camera.x-400, camera.y-150, "red", 100, 100)
+background = gamebox.from_image(camera.x, camera.y, "level_1.jpg")
 projectiles = []
 swarmers = []
 power_up_1s = []
@@ -23,7 +24,7 @@ num_swarmers = 10
 swarmer_speed = 2
 score = 0
 health = 3
-level = 0
+level = 6
 cool_down_count = 0
 cool_down_count_2 = 0
 cool_down_count_3 = 18
@@ -155,7 +156,7 @@ def shooter_start():
     global player
     cool_down_count_3 += 1
     if cool_down_count_3 % 60 == 0 and num_shooters > 0:
-        shooter_form = gamebox.from_color(random.randint(10, 790), random.randint(10, 550), "dark red", 15, 15)
+        shooter_form = gamebox.from_image(random.randint(10, 790), random.randint(10, 550), "HokieFront2.png")
         num_shooters -= 1
         shooters.append(shooter_form)
     for shooter in shooters:
@@ -267,6 +268,8 @@ def level_2_start(keys):
     global power_up_2s
     global bullets
     global projectiles
+    global background
+    background = gamebox.from_image(camera.x, camera.y, "level_2.jpg")
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 2", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
     camera.draw(level_message)
@@ -289,6 +292,8 @@ def level_3_start(keys):
     global num_shooters
     global bullets
     global projectiles
+    global background
+    background = gamebox.from_image(camera.x, camera.y, "level_3.jpeg")
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 3", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
     camera.draw(level_message)
@@ -310,6 +315,8 @@ def level_boss_start(keys):
     global bullets
     global projectiles
     global num_boss
+    global background
+    background = gamebox.from_image(camera.x, camera.y, "level_4.jpg")
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 4", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
     camera.draw(level_message)
@@ -435,6 +442,11 @@ def read_high_scores():
         camera.draw(name_disp)
 
 
+def background_start():
+    global background
+    camera.draw(background)
+
+
 def tick(keys):
     global level
     camera.clear("black")
@@ -447,6 +459,7 @@ def tick(keys):
         welcome_screen(keys)
         konami_code_func(keys)
     if level == 1:
+        background_start()
         shooting(keys)
         friction()
         swarmer_start()
@@ -460,6 +473,7 @@ def tick(keys):
     if level == 2:
         level_2_start(keys)
     if level == 3:
+        background_start()
         shooting(keys)
         friction()
         swarmer_start()
@@ -473,6 +487,7 @@ def tick(keys):
     if level == 4:
         level_3_start(keys)
     if level == 5:
+        background_start()
         shooting(keys)
         friction()
         swarmer_start()
@@ -487,6 +502,7 @@ def tick(keys):
     if level == 6:
         level_boss_start(keys)
     if level == 7:
+        background_start()
         shooting(keys)
         friction()
         boss_start()
