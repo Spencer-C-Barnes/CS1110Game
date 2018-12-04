@@ -8,7 +8,7 @@ import random
 # Define Variables
 camera = gamebox.Camera(800, 600)
 player = gamebox.from_color(50, 50, "blue", 15, 15)
-boss = gamebox.from_color(camera.x-400, camera.y-150, "red", 100, 100)
+boss = gamebox.from_image(camera.x-400, camera.y-150, "Dill.png")
 background = gamebox.from_image(camera.x, camera.y, "level_1.jpg")
 projectiles = []
 swarmers = []
@@ -24,7 +24,7 @@ num_swarmers = 10
 swarmer_speed = 2
 score = 0
 health = 3
-level = 6
+level = 0
 cool_down_count = 0
 cool_down_count_2 = 0
 cool_down_count_3 = 18
@@ -57,7 +57,7 @@ def shooting(keys):
     cool_down_count += 1
     if (pygame.K_UP in keys or pygame.K_DOWN in keys or pygame.K_LEFT in keys or pygame.K_RIGHT in keys) and \
             cool_down_count > refresh:
-        projectile_form = gamebox.from_color(player.x, player.y, "green", 15, 15)
+        projectile_form = gamebox.from_image(player.x, player.y, "Sabre.png")
         cool_down_count = 0
         if pygame.K_UP in keys:
             projectile_form.yspeed = -10
@@ -170,7 +170,7 @@ def shooter_start():
         elif player.y > shooter.y:
             shooter.y += shooter_speed
         if random.randint(1, 100) == 25:
-            bullet_form = gamebox.from_color(shooter.x, shooter.y, "orange", 7, 7)
+            bullet_form = gamebox.from_image(shooter.x, shooter.y, "Feather.png")
             if player.x < shooter.x:
                 bullet_form.xspeed -= shooter_speed*1.5
             elif player.x > shooter.x:
@@ -411,6 +411,7 @@ def write_high_scores():
     global scores_dict
     global score
     global level
+    gamebox.from_text(camera.x, camera.y, "Please Input Initials into Console", 48, "black")
     sorting_list = []
     new_list = []
     file = open("scores.csv", "r")
