@@ -34,7 +34,7 @@ num_shooters = 0
 shooter_speed = 2
 num_boss = 0
 boss_speed = 5
-boss_health = 30
+boss_health = 0
 scores_dict = {}
 
 
@@ -112,7 +112,6 @@ def boss_start():
             projectiles.remove(projectile)
     if boss_health == 0:
         score += 30
-        level += 1
     if random.randint(0, 25) == 5:
         laser_form = gamebox.from_text(boss.x, boss.y, fontsize=64, color="orange", text="BLAH")
         laser_form.rotate(-90)
@@ -222,7 +221,8 @@ def player_ui():
                                       color="white", bold=True)
     health_counter = gamebox.from_text(camera.x-300, camera.y-250, fontsize=36, text="Health: " + str(health),
                                        color="white", bold=True)
-    if num_swarmers == 0 and len(swarmers) == 0 and num_shooters == 0 and len(shooters) == 0:
+    if num_swarmers == 0 and len(swarmers) == 0 and num_shooters == 0 and len(shooters) == 0 and num_boss == 0 \
+            and boss_health == 0:
         level += 1
     camera.draw(score_counter)
     camera.draw(health_counter)
@@ -230,8 +230,8 @@ def player_ui():
 
 def welcome_screen(keys):
     global level
-    welcome_message = gamebox.from_text(camera.x, camera.y-250, fontsize=36, text="Welcome to \"Insert Game Name "
-                                                                                  "Here\"", color="white")
+    welcome_message = gamebox.from_text(camera.x, camera.y-250, fontsize=36, text="Welcome to Cavalier Showdown",
+                                        color="white")
     welcome_message_2 = gamebox.from_text(camera.x, camera.y - 200, fontsize=36,
                                           text="Created By: Spencer Barnes (scb9ca) & William Brinkley (wjb6kcr)",
                                           color="white")
@@ -317,6 +317,7 @@ def level_boss_start(keys):
     global projectiles
     global num_boss
     global background
+    global boss_health
     background = gamebox.from_image(camera.x, camera.y, "level_4.jpg")
     level_message = gamebox.from_text(camera.x, camera.y - 250, fontsize=36, text="Level 4", color="white")
     begin_message = gamebox.from_text(camera.x, camera.y - 2, fontsize=36, text="Press Space to Begin", color="white")
@@ -329,6 +330,7 @@ def level_boss_start(keys):
     if pygame.K_SPACE in keys:
         level += 1
         num_boss = 1
+        boss_health = 30
 
 
 def power_up_1():
