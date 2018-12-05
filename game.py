@@ -422,14 +422,17 @@ def winning_screen():
     camera.draw(level_message)
 
 
-def write_high_scores():
+def write_high_scores(keys):
     global scores_dict
     global score
     global level
     sorting_list = []
     new_list = []
+    initials_prompt = gamebox.from_text(camera.x, camera.y-200, "Please enter initials into console.", 48, "white")
+    camera.draw(initials_prompt)
+    camera.display()
+    initials = input("Please enter initials (3 letters): ")
     file = open("scores.csv", "r")
-    initials = input("Please enter your initials (3 Letters): ")
     scores_dict[score] = initials
     for line in file:
         name_score = line.strip().split(",")
@@ -440,9 +443,12 @@ def write_high_scores():
         sorting_list.reverse()
     for index in range(5):
         new_list.append(scores_dict[sorting_list[index]] + "," + str(sorting_list[index]) + "\n")
+    file.close()
     file_2 = open("scores.csv", "w")
     file_2.writelines(new_list)
-    level += 1
+    file_2.close()
+    if pygame.K_RETURN in keys:
+        level += 1
 
 
 def read_high_scores():
@@ -466,8 +472,7 @@ def tick(keys):
     global level
     camera.clear("black")
     if level == -2:
-        camera.draw(gamebox.from_text(camera.x, camera.y, "Please Input Initials into Console", 48, "black"))
-        write_high_scores()
+        write_high_scores(keys)
     if level == -1:
         endgame_screen()
         read_high_scores()
@@ -533,7 +538,7 @@ def tick(keys):
         player_movement(keys)
         player_endgame()
     if level == 8:
-        write_high_scores()
+        write_high_scores(keys)
     if level == 9:
         winning_screen()
         read_high_scores()
