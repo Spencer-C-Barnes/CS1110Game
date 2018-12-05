@@ -87,6 +87,18 @@ def friction():
         player.yspeed += 1
 
 
+def bounds_action():
+    global player
+    if player.x > camera.x+400:
+        player.x = camera.x-400
+    if player.x < camera.x-400:
+        player.x = camera.x+400
+    if player.y > camera.y+300:
+        player.y = camera.y-300
+    if player.y < camera.y-300:
+        player.y = camera.y+300
+
+
 def boss_start():
     global num_boss
     global boss_speed
@@ -466,6 +478,7 @@ def tick(keys):
         background_start()
         shooting(keys)
         friction()
+        bounds_action()
         swarmer_start()
         swarmer_bullet_player_collision()
         player_ui()
@@ -480,6 +493,7 @@ def tick(keys):
         background_start()
         shooting(keys)
         friction()
+        bounds_action()
         swarmer_start()
         swarmer_bullet_player_collision()
         player_ui()
@@ -494,6 +508,7 @@ def tick(keys):
         background_start()
         shooting(keys)
         friction()
+        bounds_action()
         swarmer_start()
         shooter_start()
         swarmer_bullet_player_collision()
@@ -509,6 +524,7 @@ def tick(keys):
         background_start()
         shooting(keys)
         friction()
+        bounds_action()
         boss_start()
         player_ui()
         power_up_1()
