@@ -24,7 +24,7 @@ num_swarmers = 10
 swarmer_speed = 2
 score = 0
 health = 3
-level = 0
+level = 6
 cool_down_count = 0
 cool_down_count_2 = 0
 cool_down_count_3 = 18
@@ -114,7 +114,8 @@ def boss_start():
         score += 30
         level += 1
     if random.randint(0, 25) == 5:
-        laser_form = gamebox.from_color(boss.x, boss.y, "orange", 75, 75)
+        laser_form = gamebox.from_text(boss.x, boss.y, fontsize=64, color="orange", text="BLAH")
+        laser_form.rotate(-90)
         laser_form.yspeed = 7
         lasers.append(laser_form)
     for laser in lasers:
@@ -199,7 +200,7 @@ def swarmer_bullet_player_collision():
             health -= 1
             swarmers.remove(swarmer)
         for projectile in projectiles:
-            if projectile.touches(swarmer):
+            if projectile.touches(swarmer) and (swarmer in swarmers):
                 swarmers.remove(swarmer)
                 projectiles.remove(projectile)
                 score += 1
@@ -208,7 +209,7 @@ def swarmer_bullet_player_collision():
             health -= 1
             shooters.remove(shooter)
         for projectile in projectiles:
-            if projectile.touches(shooter):
+            if projectile.touches(shooter) and (shooter in shooters):
                 shooters.remove(shooter)
                 projectiles.remove(projectile)
 
@@ -411,7 +412,6 @@ def write_high_scores():
     global scores_dict
     global score
     global level
-    gamebox.from_text(camera.x, camera.y, "Please Input Initials into Console", 48, "black")
     sorting_list = []
     new_list = []
     file = open("scores.csv", "r")
@@ -452,6 +452,7 @@ def tick(keys):
     global level
     camera.clear("black")
     if level == -2:
+        camera.draw(gamebox.from_text(camera.x, camera.y, "Please Input Initials into Console", 48, "black"))
         write_high_scores()
     if level == -1:
         endgame_screen()
