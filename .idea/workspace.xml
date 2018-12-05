@@ -40,13 +40,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="132" />
-          <entry key="py" value="10371" />
+          <entry key="py" value="10373" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="132" />
-          <entry key="Python" value="10371" />
+          <entry key="Python" value="10373" />
         </counts>
       </usages-collector>
     </session>
@@ -74,12 +74,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="116" column="90" selection-start-line="116" selection-start-column="90" selection-end-line="116" selection-end-column="90" />
+            <state relative-caret-position="306">
+              <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
               <folding>
-                <marker date="1544036965752" expanded="true" signature="2435:3507" ph="..." />
-                <marker date="1544036965752" expanded="true" signature="10119:10780" ph="..." />
-                <marker date="1544036965752" expanded="true" signature="15088:15141" ph="..." />
+                <marker date="1544037716934" expanded="true" signature="2435:3507" ph="..." />
+                <marker date="1544037716934" expanded="true" signature="10119:10780" ph="..." />
+                <marker date="1544037716934" expanded="true" signature="15088:15141" ph="..." />
               </folding>
             </state>
           </provider>
@@ -291,12 +291,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="116" column="90" selection-start-line="116" selection-start-column="90" selection-end-line="116" selection-end-column="90" />
+        <state relative-caret-position="306">
+          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
           <folding>
-            <marker date="1544036965752" expanded="true" signature="2435:3507" ph="..." />
-            <marker date="1544036965752" expanded="true" signature="10119:10780" ph="..." />
-            <marker date="1544036965752" expanded="true" signature="15088:15141" ph="..." />
+            <marker date="1544037716934" expanded="true" signature="2435:3507" ph="..." />
+            <marker date="1544037716934" expanded="true" signature="10119:10780" ph="..." />
+            <marker date="1544037716934" expanded="true" signature="15088:15141" ph="..." />
           </folding>
         </state>
       </provider>
