@@ -146,7 +146,8 @@ def swarmer_start():
     global cool_down_count_2
     cool_down_count_2 += 1
     if cool_down_count_2 % 60 == 0 and num_swarmers > 0:
-        swarmer_form = gamebox.from_image(random.randint(10, 790), random.randint(10, 550), "HokieFront2.png")
+        swarmer_form = gamebox.from_image(random.choice([10, 800]), random.randint(10, 550),
+                                          "HokieFront2.png")
         num_swarmers -= 1
         swarmers.append(swarmer_form)
     for swarmer in swarmers:  # Swarmer code by Craig Dill
@@ -169,7 +170,7 @@ def shooter_start():
     global player
     cool_down_count_3 += 1
     if cool_down_count_3 % 60 == 0 and num_shooters > 0:
-        shooter_form = gamebox.from_image(random.randint(10, 790), random.randint(10, 550), "HokieFront2.png")
+        shooter_form = gamebox.from_image(random.choice([10, 800]), random.randint(10, 550), "HokieFront2.png")
         num_shooters -= 1
         shooters.append(shooter_form)
     for shooter in shooters:
