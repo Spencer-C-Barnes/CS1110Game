@@ -7,7 +7,7 @@ import random
 
 # Define Variables
 camera = gamebox.Camera(800, 600)
-player = gamebox.from_image(camera.x, camera.y, "CavmanFR1.png")
+player = gamebox.from_image(camera.x, camera.y, "CavmanFL1.png")
 boss = gamebox.from_image(camera.x-400, camera.y-150, "Dill.png")
 background = gamebox.from_image(camera.x, camera.y, "level_1.jpg")
 projectiles = []
