@@ -250,11 +250,14 @@ def welcome_screen(keys):
                                           text="Created By: Spencer Barnes (scb9ca) & William Brinkley (wjb6kcr)",
                                           color="white")
     begin_message = gamebox.from_text(camera.x, camera.y+250, fontsize=36, text="Press Space to Begin", color="white")
+    goal_message = gamebox.from_text(camera.x, camera.y+175, fontsize=36, text="Goal: Impale the Hokies "
+                                                                               "with Cavman's Sabres!", color="white")
     how_to_play = gamebox.from_image(camera.x, camera.y, 'how_to_play.jpg')
     camera.draw(welcome_message)
     camera.draw(welcome_message_2)
     camera.draw(begin_message)
     camera.draw(how_to_play)
+    camera.draw(goal_message)
     if pygame.K_SPACE in keys:
         level += 1
 
