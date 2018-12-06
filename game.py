@@ -447,8 +447,7 @@ def write_high_scores(keys):
     file_2 = open("scores.csv", "w")
     file_2.writelines(new_list)
     file_2.close()
-    if pygame.K_RETURN in keys:
-        level += 1
+    level += 1
 
 
 def read_high_scores():

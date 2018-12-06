@@ -12,14 +12,14 @@
     <session id="1936430711">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="30" />
+          <entry key="project.closed" value="31" />
           <entry key="project.open.time.0" value="6" />
           <entry key="project.open.time.3" value="3" />
           <entry key="project.open.time.4" value="11" />
-          <entry key="project.open.time.5" value="6" />
+          <entry key="project.open.time.5" value="7" />
           <entry key="project.open.time.6" value="4" />
           <entry key="project.open.time.7" value="4" />
-          <entry key="project.opened" value="34" />
+          <entry key="project.opened" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -74,13 +74,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="17" column="16" lean-forward="true" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+            <state relative-caret-position="97">
+              <caret line="438" column="48" lean-forward="true" selection-start-line="438" selection-start-column="48" selection-end-line="438" selection-end-column="48" />
               <folding>
-                <marker date="1544044031321" expanded="true" signature="2450:2727" ph="..." />
-                <marker date="1544044031321" expanded="true" signature="2744:3797" ph="..." />
-                <marker date="1544044031321" expanded="true" signature="10409:11118" ph="..." />
-                <marker date="1544044031321" expanded="true" signature="15667:15720" ph="..." />
+                <marker date="1544059021677" expanded="true" signature="2450:2727" ph="..." />
+                <marker date="1544059021677" expanded="true" signature="2744:3797" ph="..." />
+                <marker date="1544059021677" expanded="true" signature="10409:11118" ph="..." />
+                <marker date="1544059021677" expanded="true" signature="15631:15684" ph="..." />
               </folding>
             </state>
           </provider>
@@ -247,6 +247,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1292" height="692" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11128776" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -296,22 +297,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/high_scores_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/high_scores_test.py" />
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="17" column="16" lean-forward="true" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+        <state relative-caret-position="97">
+          <caret line="438" column="48" lean-forward="true" selection-start-line="438" selection-start-column="48" selection-end-line="438" selection-end-column="48" />
           <folding>
-            <marker date="1544044031321" expanded="true" signature="2450:2727" ph="..." />
-            <marker date="1544044031321" expanded="true" signature="2744:3797" ph="..." />
-            <marker date="1544044031321" expanded="true" signature="10409:11118" ph="..." />
-            <marker date="1544044031321" expanded="true" signature="15667:15720" ph="..." />
+            <marker date="1544059021677" expanded="true" signature="2450:2727" ph="..." />
+            <marker date="1544059021677" expanded="true" signature="2744:3797" ph="..." />
+            <marker date="1544059021677" expanded="true" signature="10409:11118" ph="..." />
+            <marker date="1544059021677" expanded="true" signature="15631:15684" ph="..." />
           </folding>
         </state>
       </provider>
