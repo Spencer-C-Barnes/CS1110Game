@@ -40,6 +40,7 @@ scores_dict = {}
 
 def player_movement(keys):
     global player_speed
+    global player
     if pygame.K_a in keys:
         player.xspeed = -player_speed
     if pygame.K_d in keys:

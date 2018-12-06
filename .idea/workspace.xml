@@ -24,7 +24,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="csv" value="6" />
+          <entry key="csv" value="7" />
           <entry key="jpg" value="1" />
           <entry key="png" value="6" />
           <entry key="py" value="7" />
@@ -33,20 +33,20 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="7" />
-          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="PLAIN_TEXT" value="7" />
           <entry key="Python" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="csv" value="132" />
-          <entry key="py" value="11517" />
+          <entry key="csv" value="139" />
+          <entry key="py" value="11538" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="132" />
-          <entry key="Python" value="11517" />
+          <entry key="PLAIN_TEXT" value="139" />
+          <entry key="Python" value="11538" />
         </counts>
       </usages-collector>
     </session>
@@ -74,13 +74,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="438" column="48" lean-forward="true" selection-start-line="438" selection-start-column="48" selection-end-line="438" selection-end-column="48" />
+            <state relative-caret-position="216">
+              <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
               <folding>
-                <marker date="1544059021677" expanded="true" signature="2450:2727" ph="..." />
-                <marker date="1544059021677" expanded="true" signature="2744:3797" ph="..." />
-                <marker date="1544059021677" expanded="true" signature="10409:11118" ph="..." />
-                <marker date="1544059021677" expanded="true" signature="15631:15684" ph="..." />
+                <marker date="1544059621862" expanded="true" signature="2760:3037" ph="..." />
+                <marker date="1544059621862" expanded="true" signature="3054:4107" ph="..." />
+                <marker date="1544059621862" expanded="true" signature="10719:11428" ph="..." />
+                <marker date="1544059621862" expanded="true" signature="15941:15994" ph="..." />
               </folding>
             </state>
           </provider>
@@ -118,6 +118,7 @@
       <find>boss_health == 0</find>
       <find>boss_health ==</find>
       <find>boss_health</find>
+      <find>write</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,8 +128,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/scores.csv" />
         <option value="$PROJECT_DIR$/high_scores_test.py" />
+        <option value="$PROJECT_DIR$/scores.csv" />
         <option value="$PROJECT_DIR$/game.py" />
       </list>
     </option>
@@ -290,23 +291,23 @@
     <entry file="file://$PROJECT_DIR$/HokieFront2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/high_scores_test.py" />
     <entry file="file://$PROJECT_DIR$/scores.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+        <state relative-caret-position="68">
+          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/high_scores_test.py" />
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="438" column="48" lean-forward="true" selection-start-line="438" selection-start-column="48" selection-end-line="438" selection-end-column="48" />
+        <state relative-caret-position="216">
+          <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
           <folding>
-            <marker date="1544059021677" expanded="true" signature="2450:2727" ph="..." />
-            <marker date="1544059021677" expanded="true" signature="2744:3797" ph="..." />
-            <marker date="1544059021677" expanded="true" signature="10409:11118" ph="..." />
-            <marker date="1544059021677" expanded="true" signature="15631:15684" ph="..." />
+            <marker date="1544059621862" expanded="true" signature="2760:3037" ph="..." />
+            <marker date="1544059621862" expanded="true" signature="3054:4107" ph="..." />
+            <marker date="1544059621862" expanded="true" signature="10719:11428" ph="..." />
+            <marker date="1544059621862" expanded="true" signature="15941:15994" ph="..." />
           </folding>
         </state>
       </provider>
